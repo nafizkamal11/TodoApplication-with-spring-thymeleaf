@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+
+<pre th:text="|Welcome to zifan's login page!|"></pre>
+<hr>
+<form action="" method="post">
+    <pre th:text="${error}" style="color: red"></pre>
+    <input type="text" placeholder="Name" name="username">
+    <input type="password" placeholder="Password" name="password">
+    <input type="submit">
+</form>
+
+</body>
+</html>

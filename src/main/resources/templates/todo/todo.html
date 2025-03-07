@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container-md">
+    <!-- Content here -->
+    <pre th:text="|Welcome to zifan! - ${username}|"></pre>
+    <hr>
+    <h3>ToDo List</h3>
+    <div class="table-responsive">
+        <table class="table table-striped-columns table-hover">
+            <caption class="caption-top">List of todo</caption>
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>username</th>
+                <th>Description</th>
+                <th>Target Date</th>
+                <th>Is Done?</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:each="t : ${todoList}">
+                <td th:text="${t.getId()}"></td>
+                <td th:text="${t.getUsername()}"></td>
+                <td th:text="${t.getDescription()}"></td>
+<!--                <td th:text="${t.getTargetDate()}"></td>-->
+                <td>
+                    <input type="date" class="form-control" th:value="${t.getTargetDate()}">
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" th:checked="${t.isDone()}">
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a th:href="|/todo/update?id=${t.getId()}|" class="btn btn-sm btn-warning">Update</a>
+                        <a th:href="|/todo/delete?id=${t.getId()}|" class="btn btn-sm btn-danger">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            <tr class="table-active">
+                <td colspan="6">
+                    <a href="/todo/add" type="button" class="btn btn-success btn-sm" style="width: 100%">Add New Todo</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+<script src="webjars/jquery/3.7.1/jquery.min.js"></script>
+</body>
+</html>
