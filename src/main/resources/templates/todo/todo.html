@@ -7,9 +7,7 @@
 </head>
 <body>
 <div class="container-md">
-    <!-- Content here -->
-    <pre th:text="|Welcome to zifan! - ${username}|"></pre>
-    <hr>
+    <div th:replace="~{todo/fragments::navbar}"></div>
     <h3>ToDo List</h3>
     <div class="table-responsive">
         <table class="table table-striped-columns table-hover">
@@ -29,7 +27,7 @@
                 <td th:text="${t.getId()}"></td>
                 <td th:text="${t.getUsername()}"></td>
                 <td th:text="${t.getDescription()}"></td>
-<!--                <td th:text="${t.getTargetDate()}"></td>-->
+                <!--                <td th:text="${t.getTargetDate()}"></td>-->
                 <td>
                     <input type="date" class="form-control" th:value="${t.getTargetDate()}">
                 </td>
@@ -47,7 +45,8 @@
             </tr>
             <tr class="table-active">
                 <td colspan="6">
-                    <a href="/todo/add" type="button" class="btn btn-success btn-sm" style="width: 100%">Add New Todo</a>
+                    <a href="/todo/add" type="button" class="btn btn-success btn-sm" style="width: 100%">Add New
+                        Todo</a>
                 </td>
             </tr>
             </tbody>

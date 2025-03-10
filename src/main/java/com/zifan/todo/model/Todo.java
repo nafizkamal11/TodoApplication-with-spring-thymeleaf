@@ -1,4 +1,4 @@
-package com.zifan.todo.myTodo;
+package com.zifan.todo.model;
 
 
 import jakarta.validation.constraints.Size;

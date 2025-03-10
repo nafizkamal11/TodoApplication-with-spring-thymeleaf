@@ -1,6 +1,9 @@
-package com.zifan.todo.myTodo;
+package com.zifan.todo.controller;
 
 
+import com.zifan.todo.model.Todo;
+import com.zifan.todo.service.TodoService;
+import com.zifan.todo.service.TodoUserCredentials;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * 2025, March 02, Sunday, 5:57 AM
@@ -20,14 +21,23 @@ import java.util.stream.Stream;
 @SessionAttributes("username")
 public class TodoController {
     private TodoService todoService;
+    private TodoUserCredentials userCredentials;
 
-    public TodoController(TodoService todoService) {
+    public TodoController(TodoService todoService, TodoUserCredentials userCredentials) {
         this.todoService = todoService;
+        this.userCredentials = userCredentials;
+    }
+
+    @GetMapping
+    public String gotoWelcomePage(Model model) {
+        model.addAttribute("username", userCredentials.getUsername());
+        return "todo/welcome";
     }
 
     @GetMapping("/todo")
     public String getAllTodo(Model model) {
-        model.addAttribute("todoList", todoService.getAllTodos().stream().sorted(Comparator.comparing(Todo::getId)).toList());
+        model.addAttribute("todoList", todoService.getAllTodos());
+//        model.addAttribute("todoList", todoService.findByUsername(userCredentials.getUsername()));
         return "todo/todo";
     }
 
@@ -35,7 +45,7 @@ public class TodoController {
     public String getAddTodo(Model model) {
         Todo todo = new Todo();
         todo.setId(TodoService.getTodoCount());
-        todo.setUsername(model.getAttribute("username").toString());
+        todo.setUsername(userCredentials.getUsername());
         todo.setTargetDate(LocalDate.now().plusYears(1));
         model.addAttribute("todo", todo);
         model.addAttribute("todoList", todoService.getAllTodos());

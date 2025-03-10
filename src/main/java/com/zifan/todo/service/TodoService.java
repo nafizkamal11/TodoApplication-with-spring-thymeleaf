@@ -1,12 +1,14 @@
-package com.zifan.todo.myTodo;
+package com.zifan.todo.service;
 
 
+import com.zifan.todo.model.Todo;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,9 +24,9 @@ public class TodoService {
     private static int todoCount = 1;
 
     static {
-        todoList.add(new Todo(todoCount++, "user1", "Learn AWS", LocalDate.now().plusYears(1), false));
-        todoList.add(new Todo(todoCount++, "user2", "Learn DevOps", LocalDate.now().plusYears(2), false));
-        todoList.add(new Todo(todoCount++, "user1", "Learn Spring", LocalDate.now().plusYears(1), true));
+        todoList.add(new Todo(todoCount++, "nafiz", "Learn AWS", LocalDate.now().plusYears(1), false));
+        todoList.add(new Todo(todoCount++, "kamal", "Learn DevOps", LocalDate.now().plusYears(2), false));
+        todoList.add(new Todo(todoCount++, "nafiz", "Learn Spring", LocalDate.now().plusYears(1), true));
     }
 
     public List<Todo> findByUsername(String username) {
@@ -32,7 +34,10 @@ public class TodoService {
     }
 
     public List<Todo> getAllTodos() {
-        return todoList;
+        return todoList
+                .stream()
+                .sorted(Comparator.comparing(Todo::getId))
+                .toList();
     }
 
     public void addTodo(Todo todo) {

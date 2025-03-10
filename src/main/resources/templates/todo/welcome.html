@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>welcome</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{todo/fragments::navbar}"></div>
+    <hr>
+    <pre th:text="|Welcome to zifan's Todo! - ${username}|"></pre>
+    <p><a href="/todo">Todo Page</a></p>
+</div>
+</body>
+</html>
