@@ -44,11 +44,12 @@ public class TodoController {
     @GetMapping("/todo/add")
     public String getAddTodo(Model model) {
         Todo todo = new Todo();
-        todo.setId(TodoService.getTodoCount());
         todo.setUsername(userCredentials.getUsername());
         todo.setTargetDate(LocalDate.now().plusYears(1));
+
         model.addAttribute("todo", todo);
         model.addAttribute("todoList", todoService.getAllTodos());
+
         return "todo/add";
     }
 
@@ -63,7 +64,6 @@ public class TodoController {
         todoService.addTodo(todo);
         return "redirect:/todo";
     }
-
 
     @GetMapping("/todo/delete")
     public String deleteTodo(@RequestParam int id) {

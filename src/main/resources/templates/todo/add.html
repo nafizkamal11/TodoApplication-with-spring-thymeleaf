@@ -27,10 +27,7 @@
                 <td th:text="${t.getId()}"></td>
                 <td th:text="${t.getUsername()}"></td>
                 <td th:text="${t.getDescription()}"></td>
-<!--                <td th:text="${t.getTargetDate()}"></td>-->
-                <td>
-                    <input type="date" class="form-control" th:value="${t.getTargetDate()}">
-                </td>
+                <td><input type="date" class="form-control" th:value="${t.getTargetDate()}"></td>
                 <td>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" th:checked="${t.isDone()}">

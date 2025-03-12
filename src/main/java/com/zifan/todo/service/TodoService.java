@@ -2,6 +2,7 @@ package com.zifan.todo.service;
 
 
 import com.zifan.todo.model.Todo;
+import com.zifan.todo.repository.TodoRepository;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
@@ -18,45 +19,33 @@ import java.util.Optional;
 
 @Service
 public class TodoService {
-    private static List<Todo> todoList = new ArrayList<>();
+    private TodoRepository repository;
 
-    @Getter
-    private static int todoCount = 1;
-
-    static {
-        todoList.add(new Todo(todoCount++, "nafiz", "Learn AWS", LocalDate.now().plusYears(1), false));
-        todoList.add(new Todo(todoCount++, "kamal", "Learn DevOps", LocalDate.now().plusYears(2), false));
-        todoList.add(new Todo(todoCount++, "nafiz", "Learn Spring", LocalDate.now().plusYears(1), true));
-    }
-
-    public List<Todo> findByUsername(String username) {
-        return todoList.stream().filter(todo -> todo.getUsername().equals(username)).toList();
+    public TodoService(TodoRepository repository) {
+        this.repository = repository;
     }
 
     public List<Todo> getAllTodos() {
-        return todoList
-                .stream()
-                .sorted(Comparator.comparing(Todo::getId))
-                .toList();
+        return repository.findAll().stream().sorted(Comparator.comparing(Todo::getId)).toList();
     }
 
-    public void addTodo(Todo todo) {
-        todo.setId(todoCount++);
-        todoList.add(todo);
+    public List<Todo> findByUsername(String username) {
+        return repository.findByUsername(username).stream().sorted(Comparator.comparing(Todo::getId)).toList();
     }
 
     public Optional<Todo> findById(int id) {
-        return todoList.stream()
-                .filter(todo1 -> todo1.getId() == id)
-                .findFirst();
+        return repository.findById(id);
     }
 
     public void deleteById(int id) {
-        findById(id).ifPresent(todo -> todoList.remove(todo));
+        repository.deleteById(id);
     }
 
-    public void update(@Valid Todo todo) {
-        deleteById(todo.getId());
-        todoList.add(todo);
+    public void addTodo(Todo todo) {
+        repository.save(todo);
+    }
+
+    public void update(Todo todo) {
+        repository.save(todo);
     }
 }
