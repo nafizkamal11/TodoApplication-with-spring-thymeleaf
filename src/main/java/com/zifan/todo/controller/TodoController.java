@@ -109,4 +109,19 @@ public class TodoController {
         return "redirect:/todo";
     }
 
+    @GetMapping("/todo/done")
+    public String changeStatus(@RequestParam int id, Model model) {
+        Todo todo = todoService.findById(id).get();
+        todo.setDone(!todo.isDone());
+        todoService.update(todo);
+        return "redirect:/todo";
+    }
+
+//    @PostMapping("/todo/done")
+//    public String updateStatus(@Valid @ModelAttribute Todo todo) {
+//        todo.setDone(!todo.isDone());
+//        todoService.update(todo);
+//        return "redirect:/todo";
+//    }
+
 }
