@@ -1,3 +1,7 @@
+![img.png](src/main/resources/static/img/img.png)
+![img_1.png](src/main/resources/static/img/img_1.png)
+![img_1.png](src/main/resources/static/img/img_2.png)
+
 | **Version** | **Task** | **Description** | **Estimated Time** |
 | --- | --- | --- | --- |
 | **MVP 1** | Project Setup | Create a Spring Boot project with dependencies (Spring Web, Thymeleaf, JPA, H2) | 30 min |
